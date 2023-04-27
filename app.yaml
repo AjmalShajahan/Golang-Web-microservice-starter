@@ -11,10 +11,10 @@ logging:
   level: DEBUG
 
 #Note: Please change the credentials according to your connection
-#MYSQL Crendentials 
+#MYSQL Crendentials
 mysql:
-  user : "root"
-  password : "P@ssword123"
+  user: "root"
+  password: ""
   host: "127.0.0.1"
-  port : "3306"
-  dbname : "demo"
+  port: "3306"
+  dbname: "demo"
