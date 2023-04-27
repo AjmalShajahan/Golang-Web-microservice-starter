@@ -1,4 +1,4 @@
-module sondr-backend
+module web-api
 
 go 1.16
 
