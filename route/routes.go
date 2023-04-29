@@ -17,6 +17,7 @@ func SetupRoutes(router *gin.Engine) {
 	api.GET("/readUsers", controllers.ReadUsers)
 	api.PUT("/updateUsers", controllers.UpdateUsers)
 	api.DELETE("/deleteUsers", controllers.DeleteUsers)
+	api.POST("/savePosts", controllers.CreatePost)
 
 	router.Run(viper.GetString("server.port"))
 }

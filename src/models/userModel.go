@@ -12,6 +12,8 @@ type Users struct {
 	Name      string `gorm:"column:name;type:varchar(255);unique" json:"name"`
 	Email     string `gorm:"column:email;type:varchar(255);unique" json:"email" validate:"email"`
 	Location  string `gorm:"column:location;type:varchar(255);" json:"location"`
+	Posts     []Post
+	Comments  []Comment
 }
 
 type Admin struct {
@@ -28,4 +30,6 @@ type Admin struct {
 
 func UserMigrate() {
 	db.DB.Debug().AutoMigrate(&Users{}, &Admin{})
+	// db.DB.Migrator().CreateConstraint(&Users{}, "Post")
+	// db.DB.Migrator().CreateConstraint(&Users{}, "fk_users_post")
 }

@@ -6,4 +6,5 @@ import "web-api/src/models"
 
 func Migration() {
 	models.UserMigrate()
+	models.PostMigrate()
 }
