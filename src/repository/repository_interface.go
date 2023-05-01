@@ -5,4 +5,5 @@ type MysqlRepository interface {
 	FindById(obj interface{}, id int) error
 	Update(obj interface{}, id int, update interface{}) error
 	Delete(obj interface{}, id int) error
+	FindAll(obj interface{}) error
 }

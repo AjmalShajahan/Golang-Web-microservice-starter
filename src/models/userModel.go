@@ -8,12 +8,12 @@ import (
 )
 
 type Users struct {
-	Unique_id int    `gorm:"column:unique_id; PRIMARY_KEY" json:"unique_id"`
-	Name      string `gorm:"column:name;type:varchar(255);unique" json:"name"`
-	Email     string `gorm:"column:email;type:varchar(255);unique" json:"email" validate:"email"`
-	Location  string `gorm:"column:location;type:varchar(255);" json:"location"`
-	Posts     []Post
-	Comments  []Comment
+	ID       int    `gorm:"column:id; PRIMARY_KEY" json:"id"`
+	Name     string `gorm:"column:name;type:varchar(255);unique" json:"name"`
+	Email    string `gorm:"column:email;type:varchar(255);unique" json:"email" validate:"email"`
+	Location string `gorm:"column:location;type:varchar(255);" json:"location"`
+	// PostID   int
+	Posts []Posts `gorm:"foreignKey:UserID"`
 }
 
 type Admin struct {
@@ -30,6 +30,7 @@ type Admin struct {
 
 func UserMigrate() {
 	db.DB.Debug().AutoMigrate(&Users{}, &Admin{})
+	db.DB.Migrator().CreateConstraint(&Posts{}, "UserID")
 	// db.DB.Migrator().CreateConstraint(&Users{}, "Post")
 	// db.DB.Migrator().CreateConstraint(&Users{}, "fk_users_post")
 }

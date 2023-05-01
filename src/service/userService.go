@@ -20,7 +20,7 @@ func (c *TestAPIUsers) CreateUsers(insert *models.Users) (string, error) {
 /***API to Read users from database****/
 func (c *TestAPIUsers) FetchUsers(read *models.Users) (*models.Users, error) {
 	var user models.Users
-	if err := repository.Repo.FindById(&user, read.Unique_id); err != nil {
+	if err := repository.Repo.FindById(&user, read.ID); err != nil {
 		return nil, err
 	}
 	return &user, nil
@@ -29,7 +29,7 @@ func (c *TestAPIUsers) FetchUsers(read *models.Users) (*models.Users, error) {
 /****API to Update users from database****/
 func (c *TestAPIUsers) UpdateUsers(edit *models.Users) (string, error) {
 
-	if err := repository.Repo.Update(&models.Users{}, edit.Unique_id, edit); err != nil {
+	if err := repository.Repo.Update(&models.Users{}, edit.ID, edit); err != nil {
 		return "Unable to update user", err
 	}
 
@@ -38,7 +38,7 @@ func (c *TestAPIUsers) UpdateUsers(edit *models.Users) (string, error) {
 
 /****API to Delete users from database****/
 func (c *TestAPIUsers) DeleteUsers(del *models.Users) (string, error) {
-	if err := repository.Repo.Delete(del, del.Unique_id); err != nil {
+	if err := repository.Repo.Delete(del, del.ID); err != nil {
 		return "Unable to delete user", err
 	}
 	return "Delete Sucessfull", nil

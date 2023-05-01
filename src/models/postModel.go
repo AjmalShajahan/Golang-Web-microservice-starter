@@ -6,22 +6,26 @@ import (
 	"gorm.io/gorm"
 )
 
-type Post struct {
+type Posts struct {
 	gorm.Model
-	Unique_id int    `gorm:"column:unique_id; PRIMARY_KEY" json:"unique_id"`
-	Title     string `gorm:"column:title;type:varchar(255);unique" json:"title"`
-	Body      string `gorm:"column:body;type:varchar(255);unique" json:"body"`
-	Comments  []Comment
-	User      Users `gorm:"foreignKey:Users.Unique_id"`
+	ID    int    `gorm:"column:id; PRIMARY_KEY" json:"id"`
+	Title string `gorm:"column:title;type:varchar(255);unique" json:"title"`
+	Body  string `gorm:"column:body;type:varchar(255);unique" json:"body"`
+	// Comments  []Comment
+	// CommentID int
+	// Comment   Comment `gorm:"foreignKey:CommentID"`
+	UserID int
+	User   Users `gorm:"foreignKey:UserID"`
 }
 
 type Comment struct {
 	gorm.Model
-	Unique_id int `gorm:"column:unique_id; PRIMARY_KEY" json:"unique_id"`
-	User      Users
-	Content   string `gorm:"column:content;type:varchar(255);unique" json:"content"`
+	ID      int `gorm:"column:id; PRIMARY_KEY" json:"id"`
+	UserID  int
+	User    Users  `gorm:"foreignKey:UserID"`
+	Content string `gorm:"column:content;type:varchar(255);unique" json:"content"`
 }
 
 func PostMigrate() {
-	db.DB.Debug().AutoMigrate(&Post{}, &Comment{})
+	db.DB.Debug().AutoMigrate(&Posts{}, &Comment{})
 }

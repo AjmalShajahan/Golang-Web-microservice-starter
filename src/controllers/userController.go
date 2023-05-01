@@ -44,7 +44,7 @@ func ReadUsers(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response.ErrorMessage(constant.BADREQUEST, err))
 		return
 	}
-	if err := val.ValidateVariable(reqModel.Unique_id, "required", "unique_id"); err != nil {
+	if err := val.ValidateVariable(reqModel.ID, "required", "id"); err != nil {
 		c.JSON(http.StatusBadRequest, response.ErrorMessage(constant.BADREQUEST, err))
 		return
 	}
@@ -65,7 +65,7 @@ func UpdateUsers(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response.ErrorMessage(constant.BADREQUEST, err))
 		return
 	}
-	if err := val.ValidateVariable(reqModel.Unique_id, "required", "unique_id"); err != nil {
+	if err := val.ValidateVariable(reqModel.ID, "required", "id"); err != nil {
 		c.JSON(http.StatusBadRequest, response.ErrorMessage(constant.BADREQUEST, err))
 		return
 	}
@@ -92,7 +92,7 @@ func DeleteUsers(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response.ErrorMessage(constant.BADREQUEST, err))
 		return
 	}
-	if err := val.ValidateVariable(reqModel.Unique_id, "required", "unique_id"); err != nil {
+	if err := val.ValidateVariable(reqModel.ID, "required", "id"); err != nil {
 		c.JSON(http.StatusBadRequest, response.ErrorMessage(constant.BADREQUEST, err))
 		return
 	}

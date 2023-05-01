@@ -22,7 +22,14 @@ func (r *MySqlRepositoryRepo) Insert(req interface{}) error {
 
 /***Fetching data from database***/
 func (r *MySqlRepositoryRepo) FindById(obj interface{}, id int) error {
-	if err := database.DB.Debug().Where("unique_id = ? ", id).Find(obj).Error; err != nil {
+	if err := database.DB.Debug().Where("id = ? ", id).Find(obj).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *MySqlRepositoryRepo) FindAll(obj interface{}) error {
+	if err := database.DB.Debug().Find(obj).Error; err != nil {
 		return err
 	}
 	return nil
@@ -31,14 +38,14 @@ func (r *MySqlRepositoryRepo) FindById(obj interface{}, id int) error {
 /***For Updating tableName ***/
 func (r *MySqlRepositoryRepo) Update(obj interface{}, id int, update interface{}) error {
 
-	if err := database.DB.Debug().Where("Unique_id IN (?) ", id).First(obj).Updates(update).Error; err != nil {
+	if err := database.DB.Debug().Where("ID IN (?) ", id).First(obj).Updates(update).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
 func (r *MySqlRepositoryRepo) Delete(obj interface{}, id int) error {
-	if err := database.DB.Debug().Where("Unique_id IN (?) ", id).First(obj).Delete(obj).Error; err != nil {
+	if err := database.DB.Debug().Where("ID IN (?) ", id).First(obj).Delete(obj).Error; err != nil {
 		return err
 	}
 	return nil

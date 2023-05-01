@@ -16,7 +16,7 @@ import (
 var once sync.Once
 var DB *gorm.DB
 
-//Conn connects to Database
+// Conn connects to Database
 func GetInstancemysql() (dba *gorm.DB) {
 	once.Do(func() {
 		user := viper.GetString("mysql.user")
