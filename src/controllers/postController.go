@@ -75,7 +75,7 @@ func CreateComment(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response.ErrorMessage(constant.BADREQUEST, err))
 		return
 	}
-	var service = service.CommentService{}
+	var service = service.PostService{}
 	saved, err := service.CreateComment(&reqModel)
 	if err != nil {
 		log.Error().Msgf("Error inserting data into the database: %s", err.Error())
@@ -84,4 +84,24 @@ func CreateComment(c *gin.Context) {
 	}
 	log.Info().Msgf("Comment Inserted Succesfully in the database: %s", saved)
 	c.JSON(http.StatusOK, response.SuccessResponse(saved))
+}
+func FindComPostsByUser(c *gin.Context) {
+
+	reqModel := &models.Users{}
+	if err := c.ShouldBind(&reqModel); err != nil {
+		c.JSON(http.StatusBadRequest, response.ErrorMessage(constant.BADREQUEST, err))
+		return
+	}
+	if err := val.ValidateVariable(reqModel.ID, "required", "id"); err != nil {
+		c.JSON(http.StatusBadRequest, response.ErrorMessage(constant.BADREQUEST, err))
+		return
+	}
+	var service = service.PostService{}
+	readComments, err := service.FindComPostsByUser(reqModel.ID)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, response.ErrorMessage(constant.INTERNALSERVERERROR, err))
+		return
+	}
+	c.JSON(http.StatusOK, response.SuccessResponse(readComments))
 }

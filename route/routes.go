@@ -21,6 +21,7 @@ func SetupRoutes(router *gin.Engine) {
 	api.GET("/readPosts", controllers.ReadPost)
 	api.GET("/findPosts", controllers.FindPostsByUser)
 	api.POST("/saveComment", controllers.CreateComment)
+	api.GET("/findComPosts", controllers.FindComPostsByUser)
 
 	router.Run(viper.GetString("server.port"))
 }

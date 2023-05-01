@@ -34,13 +34,20 @@ func (s *PostService) FindPostsByUser(userID int) ([]models.Posts, error) {
 	return posts, nil
 }
 
-type CommentService struct{}
-
-func (c *CommentService) CreateComment(insert *models.Comments) (string, error) {
+func (c *PostService) CreateComment(insert *models.Comments) (string, error) {
 
 	if err := repository.Repo.Insert(insert); err != nil {
 		return "Unable to insert comment", err
 	}
 
 	return "Comment inserted sucessfully", nil
+}
+
+func (c *PostService) FindComPostsByUser(userID int) ([]models.Comments, error) {
+	var comments []models.Comments
+	err := database.DB.Where("user_id = ?", userID).Find(&comments).Error
+	if err != nil {
+		return nil, err
+	}
+	return comments, nil
 }
