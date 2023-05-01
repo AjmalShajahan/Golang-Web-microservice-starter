@@ -20,6 +20,7 @@ func SetupRoutes(router *gin.Engine) {
 	api.POST("/savePosts", controllers.CreatePost)
 	api.GET("/readPosts", controllers.ReadPost)
 	api.GET("/findPosts", controllers.FindPostsByUser)
+	api.POST("/saveComment", controllers.CreateComment)
 
 	router.Run(viper.GetString("server.port"))
 }

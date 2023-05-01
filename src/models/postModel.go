@@ -8,24 +8,24 @@ import (
 
 type Posts struct {
 	gorm.Model
-	ID    int    `gorm:"column:id; PRIMARY_KEY" json:"id"`
-	Title string `gorm:"column:title;type:varchar(255);unique" json:"title"`
-	Body  string `gorm:"column:body;type:varchar(255);unique" json:"body"`
-	// Comments  []Comment
-	// CommentID int
-	// Comment   Comment `gorm:"foreignKey:CommentID"`
+	ID     int    `gorm:"column:id; PRIMARY_KEY" json:"id"`
+	Title  string `gorm:"column:title;type:varchar(255)" json:"title"`
+	Body   string `gorm:"column:body;type:varchar(255)" json:"body"`
 	UserID int
 	User   Users `gorm:"foreignKey:UserID"`
 }
 
-type Comment struct {
+type Comments struct {
 	gorm.Model
-	ID      int `gorm:"column:id; PRIMARY_KEY" json:"id"`
+	ID      int    `gorm:"column:id; PRIMARY_KEY" json:"id"`
+	Comment string `gorm:"column:content;type:varchar(255)" json:"content"`
 	UserID  int
-	User    Users  `gorm:"foreignKey:UserID"`
-	Content string `gorm:"column:content;type:varchar(255);unique" json:"content"`
+	User    Users `gorm:"foreignKey:UserID"`
+	PostID  int
+	Post    Posts `gorm:"foreignKey:PostID"`
 }
 
 func PostMigrate() {
-	db.DB.Debug().AutoMigrate(&Posts{}, &Comment{})
+	db.DB.Debug().AutoMigrate(&Posts{}, &Comments{})
+
 }
